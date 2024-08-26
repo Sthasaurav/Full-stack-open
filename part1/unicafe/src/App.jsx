@@ -13,6 +13,9 @@ const Button = (props) => {
 }
 
 const Statistics = (props) => {
+  if (props.total == 0) {
+    return (<p>No Feedback Given</p>)
+  }
   return (
     <>
       <h1>statistics</h1>
@@ -24,9 +27,6 @@ const Statistics = (props) => {
       <p>positive {props.positive} %</p>
     </>
   )
-
-
-
 }
 
 const App = () => {
