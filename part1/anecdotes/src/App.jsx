@@ -19,7 +19,7 @@ const App = () => {
     const random = Math.floor(Math.random() * 6);
     setSelected(random);
   };
-  const handleVote = () => { setVote(vote+1) }
+  const handleVote = () => { setVote(vote + 1) }
 
   return (
     <div>
