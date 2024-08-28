@@ -5,11 +5,21 @@ const App = () => {
     { name: 'Arto Hellas' }])
   const [newName, setNewName] = useState('')
 
-const handleSubmit=(event) => {
-  event.preventDefault()
-  setPersons([...persons, { name: newName }])
-  setNewName('') 
-}
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const nameExist = persons.some((person) => person.name === newName);
+    if (nameExist) {
+      alert("Name you entered already exists")
+      setNewName('')
+
+    }
+    else {
+      setPersons([...persons, { name: newName }])
+      setNewName('')
+
+    }
+
+  }
 
 
   return (
