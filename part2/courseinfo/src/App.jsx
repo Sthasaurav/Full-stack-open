@@ -1,4 +1,4 @@
-import Course from "./components/Courses"
+import Course from "./component/Course.jsx"
 const App = () => {
   const courses = [
     
@@ -56,5 +56,3 @@ const App = () => {
 }
 
 export default App
-
-{/* <Course course={courses} /> */ }
