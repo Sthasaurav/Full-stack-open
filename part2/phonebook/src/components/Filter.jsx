@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
-const Filter = ({ search, handleSearchChange }) => {
-    return (
-        <div>
-            <label htmlFor="">filter shown with</label>
-            <input
-                type="text"
-                value={search}
-                onChange={handleSearchChange}
-            />
-        </div>
-    );
-};
+function Filter({filteredPersons}) {
+    
+  return (
+    <div>
+         {filteredPersons.map(person => (
+        <p key={person.id}>{person.name} {person.number}</p>
+      ))}
+      
+      
+    </div>
+  )
+}
 
-export default Filter;
+export default Filter

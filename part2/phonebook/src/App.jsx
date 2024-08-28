@@ -1,38 +1,44 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
 import PersonForm from './components/PersonForm';
 import Filter from './components/Filter';
-import Persons from './components/Persons';
+import Search from './components/Search';
 
 const App = () => {
-    const [persons, setPersons] = useState([
-        { name: 'Arto Hellas', number: '040-123456', id: 1 },
-        { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-        { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-        { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-    ]);
-    const [search, setSearch] = useState('');
+  const [persons, setPersons] = useState([]);
+  const [search, setSearch] = useState(''); {
+
+    useEffect(() => {
+      axios.get('http://localhost:3001/persons')
+        .then(response => {
+          const data = response.data;
+          setPersons(data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }, []); 
+    const filteredPersons = persons.filter(person =>
+      person.name.toLowerCase().includes(search.toLowerCase())
+    );
 
     const handleSearchChange = (event) => {
-        setSearch(event.target.value);
+      setSearch(event.target.value);
     };
 
-    const filteredPersons = persons.filter(person =>
-        person.name.toLowerCase().includes(search.toLowerCase())
-    );
-
     return (
-        <div>
-            <h2>Phonebook</h2>
+      <div>
+        <h2>Phonebook</h2>
+        <Search handleSearchChange={handleSearchChange} search={search} />
 
-            <Filter search={search} handleSearchChange={handleSearchChange} />
+        <h2>add a new</h2>
+        <PersonForm persons={persons} setPersons={setPersons} />
 
-            <h3>Add a new</h3>
-            <PersonForm persons={persons} setPersons={setPersons} />
-
-            <h3>Numbers</h3>
-            <Persons filteredPersons={filteredPersons} />
-        </div>
+        <h2>Numbers</h2>
+        <Filter filteredPersons={filteredPersons} />
+      </div>
     );
-};
+  };
+}
 
 export default App;
