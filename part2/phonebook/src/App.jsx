@@ -26,6 +26,24 @@ const App = () => {
     setSearch(event.target.value);
   };
 
+  const handleDelete = (id, name) => {
+    const alertDelete = window.confirm(`Do you want to delete ${name}?`);
+
+    if (alertDelete) {
+      phonenumber.remove(id)
+        .then(() => {
+          setPersons(persons.filter(person => person.id !== id));
+        })
+        .catch(error => {
+          console.error('Error deleting person:', error);
+        });
+    }
+  };
+
+
+
+
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -35,7 +53,7 @@ const App = () => {
       <PersonForm persons={persons} setPersons={setPersons} />
 
       <h2>Numbers</h2>
-      <Filter filteredPersons={filteredPersons} />
+      <Filter filteredPersons={filteredPersons} onDelete={handleDelete} />
     </div>
   );
 };

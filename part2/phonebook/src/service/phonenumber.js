@@ -13,6 +13,14 @@ const create=(newPerson)=>{
         
     }
 
+    const remove = (id) => {
+        const request = axios.delete(`${url}/${id}`);
+        return request.then(response => response.data);
+      };
+      const update = (id, updatedPerson) => {
+        const request = axios.put(`${url}/${id}`, updatedPerson);
+        return request.then(response => response.data);
+    };
 
-    
-    export default {getData,create}
+
+    export default {getData,create,remove,update}

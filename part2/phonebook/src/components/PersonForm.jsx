@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import phonenumber from '../service/phonenumber';
 
 function PersonForm({ persons, setPersons }) {
@@ -9,32 +8,51 @@ function PersonForm({ persons, setPersons }) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const nameExists = persons.some(person => person.name === newName);
-        const numberExists = persons.some(person => person.number === newNumber);
+        if (!newName.trim()) {
+            alert('Name cannot be empty');
+            return;
+        }
+        if (!newNumber.trim()) {
+            alert('Number cannot be empty');
+            return;
+        }
 
-        if (nameExists) {
-            alert(`${newName} already exists in phonebook`);
-        } else if (numberExists) {
-            alert(`${newNumber} already exists in phonebook`);
+        const existingPerson = persons.find(person => person.name === newName);
+
+        // const nameExists = persons.some(person => person.name === newName);
+        // const numberExists = persons.some(person => person.number === newNumber);
+
+        if (existingPerson) {
+            if (window.confirm(`${newName} already exists. Do you want to update the number?`)) {
+                phonenumber
+                    .update(existingPerson.id, { ...existingPerson, number: newNumber })
+                    .then(updatedPerson => {
+                        setPersons(persons.map(person =>
+                            person.id !== updatedPerson.id ? person : updatedPerson
+                        ));
+                    })
+                    .catch(error => {
+                        console.error('Error updating person:', error);
+                    });
+            }
         } else {
+            
             const newPerson = { name: newName, number: newNumber };
 
-               // Use the service to send POST request
-               phonenumber
-               .create(newPerson)
-               .then(returnedPerson => {
-                   // Update state with the new person
-                   setPersons(persons.concat(returnedPerson));
-               })
-               .catch(error => {
-                   console.error('Error adding person:', error);
-               });
-
-            // Clear input fields
-            setNewName('');
-            setNewNumber('');
+            phonenumber
+                .create(newPerson)
+                .then(returnedPerson => {
+                    setPersons(persons.concat(returnedPerson));
+                })
+                .catch(error => {
+                    console.error('Error adding person:', error);
+                });
         }
+
+        setNewName('');
+        setNewNumber('');
     };
+
 
     return (
         <div>
