@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import phonenumber from '../service/phonenumber';
 
-function PersonForm({ persons, setPersons }) {
+function PersonForm({ persons, setPersons, handleAdd }) {
     const [newName, setNewName] = useState('');
     const [newNumber, setNewNumber] = useState('');
 
@@ -19,9 +19,6 @@ function PersonForm({ persons, setPersons }) {
 
         const existingPerson = persons.find(person => person.name === newName);
 
-        // const nameExists = persons.some(person => person.name === newName);
-        // const numberExists = persons.some(person => person.number === newNumber);
-
         if (existingPerson) {
             if (window.confirm(`${newName} already exists. Do you want to update the number?`)) {
                 phonenumber
@@ -30,19 +27,20 @@ function PersonForm({ persons, setPersons }) {
                         setPersons(persons.map(person =>
                             person.id !== updatedPerson.id ? person : updatedPerson
                         ));
+                        handleAdd(updatedPerson); // Trigger notification
                     })
                     .catch(error => {
                         console.error('Error updating person:', error);
                     });
             }
         } else {
-            
             const newPerson = { name: newName, number: newNumber };
 
             phonenumber
                 .create(newPerson)
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson));
+                    handleAdd(returnedPerson);
                 })
                 .catch(error => {
                     console.error('Error adding person:', error);
@@ -52,7 +50,6 @@ function PersonForm({ persons, setPersons }) {
         setNewName('');
         setNewNumber('');
     };
-
 
     return (
         <div>
