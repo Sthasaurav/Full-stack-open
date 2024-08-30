@@ -25,12 +25,9 @@ const persons =
     }
 ]
 
-// app.get('/', (request, response) => {
-//   response.send('<h1>Hello World!!!!!</h1>')
-// })
 
 app.get('/api/persons/', (request, response) => {
-  response.json(persons);
+  response.send(persons);
 });
 
 app.get('/info', (request, response) => {
@@ -40,12 +37,15 @@ const date=new Date();
 response.send(`<p>Phonebook has info for ${numberofpeople} people <p>${date}</p>`) ;
 });
 
-// app.get('/api/persons/:id', (request, response) => {
-//     const id = request.params.id
-//     const note = persons.find(note => note.id === id)
-//     response.json(note)
-//   })
-
+app.get('/api/persons/:id', (request, response) => {
+    const id = request.params.id
+    const person = persons.find(person => person.id === id)
+    if (person) {
+      response.json(person);
+    } else {
+      response.status(404).json({ error: 'Person not found' });
+    }
+  });
 
 //   app.delete('/api/persons/:id', (request, response) => {
 //     const id = request.params.id
@@ -59,7 +59,7 @@ response.send(`<p>Phonebook has info for ${numberofpeople} people <p>${date}</p>
 // })
 
 
-const PORT = 3001
+const PORT = 3001;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+  console.log(`Server running on port ${PORT}`);
 })
