@@ -29,10 +29,16 @@ const persons =
 //   response.send('<h1>Hello World!!!!!</h1>')
 // })
 
-app.get("/api/persons/", (request, response) => {
+app.get('/api/persons/', (request, response) => {
+  response.json(persons);
+});
 
-  response.send(persons);
-})
+app.get('/info', (request, response) => {
+const numberofpeople=persons.length;
+const date=new Date();
+// const output=`<p>Phonebook has info for ${numberofpeople} people <p>${date}</p>`
+response.send(`<p>Phonebook has info for ${numberofpeople} people <p>${date}</p>`) ;
+});
 
 // app.get('/api/persons/:id', (request, response) => {
 //     const id = request.params.id
