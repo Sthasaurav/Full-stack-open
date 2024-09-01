@@ -52,7 +52,6 @@ app.get('/api/persons/:id', (request, response) => {
     const id = request.params.id
    let deletedpersons = persons.filter(person => person.id !== id)
   response.send(deletedpersons)
-    // response.status(204).end()
   })
 
   const generatedId=()=>{
@@ -64,11 +63,18 @@ app.get('/api/persons/:id', (request, response) => {
 app.post('/api/persons', (request,response)=>{
     const body= request.body;
     body.id=generatedId();
-    console.log(generatedId)
-    persons=persons.concat(body)
-    response.status(201).send(persons)
+    if(!body.name||!body.name){
+      response.status(404).json({error:"name or number is missing"})
+    }
 
-})
+    const existingName=persons.find((person)=>person.name===body.name)
+    if(existingName){
+      response.status(400).json({error:"name must be unique"})    }
+    
+      persons=persons.concat(body)
+      response.status(201).send(persons)
+}
+)
 
 
 const PORT = 3001;
