@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const url='http://localhost:3001/persons'
+// const url='http://localhost:3001/persons'
+
+//integrating fromend and backend
+const url='http://localhost:3001/api/persons'
 
 const getData=()=>{
 const request=axios.get(url)
