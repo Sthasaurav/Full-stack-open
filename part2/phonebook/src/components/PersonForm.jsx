@@ -35,7 +35,7 @@ function PersonForm({ persons, setPersons, handleAdd }) {
             }
         } else {
             const newPerson = { name: newName, number: newNumber };
-
+console.log(newName)
             phonenumber
                 .create(newPerson)
                 .then(returnedPerson => {

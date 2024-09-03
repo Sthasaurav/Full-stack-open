@@ -9,6 +9,8 @@ const App = () => {
   const [persons, setPersons] = useState([]);
   const [search, setSearch] = useState('');
   const [notification, setNotification] = useState('');
+  const [notificationType, setNotificationType] = useState('');
+
 
   useEffect(() => {
     phonenumber.getData()
@@ -36,6 +38,7 @@ const App = () => {
         .then(() => {
           setPersons(persons.filter(person => person.id !== id));
           setNotification(`Deleted ${name}`);
+          setNotificationType('delete');
 
         })
         .catch(error => {
@@ -45,14 +48,16 @@ const App = () => {
   };
 
   const handleAdd = (newPerson) => {
+    console.log("added person:", newPerson)
     setNotification(`Added ${newPerson.name}`);
 
+    setNotificationType('add');
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notification} />
+      <Notification message={notification} type={notificationType} />
 
       <Search handleSearchChange={handleSearchChange} search={search} />
 

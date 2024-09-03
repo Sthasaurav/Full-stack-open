@@ -1,13 +1,13 @@
-import '../index.css'
-const Notification = ({ message }) => {
+import '../index.css';
+
+const Notification = ({ message, type }) => {
     if (!message) {
         return null;
     }
 
     return (
-        <div className="notification">
+        <div className={`notification ${type}`}>
             {message}
-            {/* {console.log(message)} */}
         </div>
     );
 }

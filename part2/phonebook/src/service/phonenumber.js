@@ -2,8 +2,12 @@ import axios from 'axios'
 
 // const url='http://localhost:3001/persons'
 
-//integrating fromend and backend
-const url='http://localhost:3001/api/persons'
+//integrating frontend with backend
+// const url='http://localhost:3001/api/persons'
+//build for production
+const url='/api/persons'
+
+// const url='https://phonebook-backend-coui.onrender.com/api/persons'
 
 const getData=()=>{
 const request=axios.get(url)
