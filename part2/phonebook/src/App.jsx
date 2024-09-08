@@ -12,7 +12,7 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [notification, setNotification] = useState('');
   const [notificationType, setNotificationType] = useState('');
-  const [count, setCount] = useState(3);
+  // const [count, setCount] = useState(3);
 
 
 
