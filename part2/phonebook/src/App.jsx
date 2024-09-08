@@ -6,11 +6,14 @@ import Filter from './components/Filter';
 import Search from './components/Search';
 import Notification from './components/Notification';
 
+
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [search, setSearch] = useState('');
   const [notification, setNotification] = useState('');
   const [notificationType, setNotificationType] = useState('');
+  const [count, setCount] = useState(3);
+
 
 
   useEffect(() => {
@@ -35,11 +38,18 @@ const App = () => {
     const alertDelete = window.confirm(`Do you want to delete ${name}?`);
 
     if (alertDelete) {
+
       phonenumber.remove(id)
         .then(() => {
           setPersons(persons.filter(person => person.id !== id));
           setNotification(`Deleted ${name}`);
           setNotificationType('delete');
+
+          const timer = setTimeout(() => {
+            setNotification('');
+            setNotificationType('');
+          }, 10000);
+          return () => clearTimeout(timer);
 
         })
         .catch(error => {
@@ -53,12 +63,20 @@ const App = () => {
     setNotification(`Added ${newPerson.name}`);
 
     setNotificationType('add');
+    const timer = setInterval(() => {
+      setNotification("");
+      setNotificationType("")
+    }, 10000)
+    return () => clearTimeout(timer)
   };
+
+
 
   return (
     <div>
       <h2>Phonebook</h2>
       <Notification message={notification} type={notificationType} />
+
 
       <Search handleSearchChange={handleSearchChange} search={search} />
 

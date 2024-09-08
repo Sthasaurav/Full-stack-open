@@ -1,5 +1,6 @@
 import '../index.css';
 
+
 const Notification = ({ message, type }) => {
     if (!message) {
         return null;
@@ -8,6 +9,7 @@ const Notification = ({ message, type }) => {
     return (
         <div className={`notification ${type}`}>
             {message}
+           
         </div>
     );
 }
