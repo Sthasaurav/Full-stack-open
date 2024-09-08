@@ -12,7 +12,7 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [notification, setNotification] = useState('');
   const [notificationType, setNotificationType] = useState('');
-  // const [count, setCount] = useState(3);
+  const [countdown, setCountdown] = useState(3);
 
 
 
@@ -45,12 +45,18 @@ const App = () => {
           setNotification(`Deleted ${name}`);
           setNotificationType('delete');
 
-          const timer = setTimeout(() => {
-            setNotification('');
-            setNotificationType('');
-          }, 10000);
-          return () => clearTimeout(timer);
+          let timeLeft = 10;
+          setCountdown(timeLeft);
+          const timer = setInterval(() => {
+            timeLeft = timeLeft -1;
+            setCountdown(timeLeft);
 
+            if (timeLeft === 0) {
+              setNotification('');
+              setNotificationType('');
+              clearInterval(timer);
+            }
+          }, 1000);
         })
         .catch(error => {
           console.error('Error deleting person:', error);
@@ -63,11 +69,18 @@ const App = () => {
     setNotification(`Added ${newPerson.name}`);
 
     setNotificationType('add');
+    let timeLeft = 10;
+    setCountdown(timeLeft);
     const timer = setInterval(() => {
-      setNotification("");
-      setNotificationType("")
-    }, 10000)
-    return () => clearTimeout(timer)
+      timeLeft = timeLeft - 1;
+      setCountdown(timeLeft);
+
+      if (timeLeft === 0) {
+        setNotification('');
+        setNotificationType('');
+        clearInterval(timer);
+      }
+    }, 1000);
   };
 
 
@@ -75,7 +88,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notification} type={notificationType} />
+      <Notification message={notification} type={notificationType} countdown={countdown} />
 
 
       <Search handleSearchChange={handleSearchChange} search={search} />

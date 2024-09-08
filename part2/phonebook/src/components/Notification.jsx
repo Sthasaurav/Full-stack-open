@@ -1,18 +1,18 @@
 import '../index.css';
-import Countdown from 'react-countdown';
+// import Countdown from 'react-countdown';
 
 
-const Notification = ({ message, type }) => {
-    if (!message) {
-        return null;
-    }
+const Notification = ({ message, type, countdown }) => {
+    if (!message) return null; // Don't render if there's no message
+
 
     return (
         <div className={`notification ${type}`}>
             {message}
             <span className="countdown">
-                <Countdown date={Date.now() + 10000} />
+                {countdown}
             </span>
+
         </div>
     );
 }
