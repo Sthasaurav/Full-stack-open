@@ -65,7 +65,7 @@ const App = () => {
       <h2>add a new</h2>
       <PersonForm persons={persons} setPersons={setPersons} handleAdd={handleAdd} />
 
-      <h2>Number</h2>
+      <h2>PHONE</h2>
       <Filter filteredPersons={filteredPersons} onDelete={handleDelete} />
     </div>
   );
