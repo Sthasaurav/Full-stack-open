@@ -3,7 +3,7 @@ import '../index.css';
 
 
 const Notification = ({ message, type, countdown }) => {
-    if (!message) return null; // Don't render if there's no message
+    if (!message) return null; 
 
 
     return (

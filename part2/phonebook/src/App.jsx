@@ -12,8 +12,8 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [notification, setNotification] = useState('');
   const [notificationType, setNotificationType] = useState('');
-  const [countdown, setCountdown] = useState(3);
-
+  const [countdown, setCountdown] = useState('');
+  const [globalTimer, setGlobalTimer] = useState('');
 
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const App = () => {
         console.error('Error fetching data:', error);
       });
   }, []);
+
 
   const filteredPersons = persons.filter(person =>
     person.name.toLowerCase().includes(search.toLowerCase())
@@ -44,12 +45,15 @@ const App = () => {
           setPersons(persons.filter(person => person.id !== id));
           setNotification(`Deleted ${name}`);
           setNotificationType('delete');
+          clearInterval(globalTimer)
+          console.log(`global ${globalTimer}`)
 
           let timeLeft = 10;
           setCountdown(timeLeft);
           const timer = setInterval(() => {
-            timeLeft = timeLeft -1;
+            timeLeft = timeLeft - 1;
             setCountdown(timeLeft);
+
 
             if (timeLeft === 0) {
               setNotification('');
@@ -57,6 +61,8 @@ const App = () => {
               clearInterval(timer);
             }
           }, 1000);
+          setGlobalTimer(timer)
+
         })
         .catch(error => {
           console.error('Error deleting person:', error);
@@ -69,6 +75,7 @@ const App = () => {
     setNotification(`Added ${newPerson.name}`);
 
     setNotificationType('add');
+    clearInterval(globalTimer)
     let timeLeft = 10;
     setCountdown(timeLeft);
     const timer = setInterval(() => {
@@ -81,6 +88,8 @@ const App = () => {
         clearInterval(timer);
       }
     }, 1000);
+    setGlobalTimer(timer)
+
   };
 
 
