@@ -96,9 +96,19 @@ describe('total likes', () => {
   })
 })
 
-// describe('favorite blog', () => {
-//   test('of empty list is empty object', () => {
-//     expect(listHelper.favoriteBlog([])).toEqual({})
-//   })})
+
+describe('favorite blog', () => {
+  test('of empty list is zero', () => {
+    assert.deepStrictEqual(listHelper.favoriteBlog([]), {});
+  })
+
+  test('when list has only one blog equals that blog itself', () => {
+    assert.deepStrictEqual(listHelper.favoriteBlog(listWithOneBlog), listWithOneBlog[0]);
+  })
+
+  test('of a bigger list is calculated right', () => {
+    assert.deepStrictEqual(listHelper.favoriteBlog(blogs), blogs[2]);
+  })
+})
 
 
