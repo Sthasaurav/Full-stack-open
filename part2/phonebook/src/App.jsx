@@ -13,7 +13,7 @@ const App = () => {
   const [notification, setNotification] = useState('');
   const [notificationType, setNotificationType] = useState('');
   const [countdown, setCountdown] = useState('');
-  const [globalTimer, setGlobalTimer] = useState('');
+  const [globalTimer, setGlobalTimer] = useState('10');
 
 
   useEffect(() => {
@@ -46,7 +46,6 @@ const App = () => {
           setNotification(`Deleted ${name}`);
           setNotificationType('delete');
           clearInterval(globalTimer)
-          console.log(`global ${globalTimer}`)
 
           let timeLeft = 10;
           setCountdown(timeLeft);
