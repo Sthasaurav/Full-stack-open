@@ -4,6 +4,7 @@ const dummy = (blogs) => {
 }
 
 total=0
+
 const totalLikes = (blogs) =>  blogs.reduce((a, i) => a + i.likes, 0)
   /*
       total =0
