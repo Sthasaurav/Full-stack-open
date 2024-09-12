@@ -3,7 +3,6 @@
 // new controllers directory. All of the routes related to
 //  notes are now in the notes.js module under the controllers directory.
 const express = require('express'); 
-
 const blogsRouter = express.Router(); 
 const Blog= require('../models/blogs')
 const middleware = require('../utils/middleware')
