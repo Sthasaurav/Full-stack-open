@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { voteOnAnecdote } from '../reducers/anecdoteReducer'
 
-function Anecdotes() {
+function AnecdoteList() {
   const anecdotes = useSelector(state => state)
   const dispatch = useDispatch()
   
@@ -15,7 +15,6 @@ function Anecdotes() {
 
   return (
     <div>
-      <h2>Anecdotes</h2>
       {anecdotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
@@ -31,4 +30,4 @@ function Anecdotes() {
   )
 }
 
-export default Anecdotes
+export default AnecdoteList
