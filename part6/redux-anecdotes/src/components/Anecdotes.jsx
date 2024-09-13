@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { voteOnAnecdote } from '../reducers/anecdoteReducer'
@@ -5,6 +6,7 @@ import { voteOnAnecdote } from '../reducers/anecdoteReducer'
 function Anecdotes() {
   const anecdotes = useSelector(state => state)
   const dispatch = useDispatch()
+  
 
 
   const vote = (id) => {

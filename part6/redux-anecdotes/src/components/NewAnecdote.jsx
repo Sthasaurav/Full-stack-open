@@ -1,8 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
-
-
 
 function NewAnecdote() {
     const dispatch = useDispatch()
