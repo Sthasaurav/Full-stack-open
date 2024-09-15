@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-// import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const anecdotesAtStart = [
   'If it hurts, do it more often',
@@ -22,41 +22,63 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const anecdotereducer = (state = initialState, action) => {
+const anecdoteSlice=createSlice({
+  name:'anecdote',
+  initialState,
+  reducer:{
+    createAnecdote(state,action){
+      return state.push({
+        id: getId(),
+              content:action.payload,
+            votes:0
 
-  switch(action.type){
-    case 'VOTE':
-      return state.map(anecdote=>
-        anecdote.id===action.data.id? {...anecdote,votes:anecdote.votes+1}:anecdote
-      )
-      case 'CREATE':
-        return [...state, action.data]
+      })
+    },
+    voteOnAnecdote(state, action) {
+      return state.map(anecdote => 
+        anecdote.id===action.data.id? {...anecdote,votes:anecdote.votes+1}:anecdote      )
+    },
+  }
+})
+
+export const {createAnecdote,voteOnAnecdote}=anecdoteSlice.actions
+export default anecdoteSlice.reducer
+
+// const anecdotereducer = (state = initialState, action) => {
+
+//   switch(action.type){
+//     case 'VOTE':
+//       return state.map(anecdote=>
+//         anecdote.id===action.data.id? {...anecdote,votes:anecdote.votes+1}:anecdote
+//       )
+//       case 'CREATE':
+//         return [...state, action.data]
     
-  }
-  console.log('action', action)
+//   }
+//   console.log('action', action)
 
-  return state
-}
+//   return state
+// }
 
-export const createAnecdote=(content)=>{
-  return{
-    type:'CREATE',
-    data: {
-      id: getId(),
-      content,
-    votes:0
+// export const createAnecdote=(content)=>{
+//   return{
+//     type:'CREATE',
+//     data: {
+//       id: getId(),
+//       content,
+//     votes:0
      
-    }
+//     }
 
-  }
-}
+//   }
+// }
 
-export const voteOnAnecdote = (id) => {
-  return {
-    type: 'VOTE',
-    data: { id }
-  }
-}
+// export const voteOnAnecdote = (id) => {
+//   return {
+//     type: 'VOTE',
+//     data: { id }
+//   }
+// }
 
-export default anecdotereducer
+// export default anecdotereducer
 
