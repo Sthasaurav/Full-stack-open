@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 import { createSlice } from '@reduxjs/toolkit'
 
 const anecdotesAtStart = []
@@ -21,6 +20,8 @@ const anecdoteSlice=createSlice({
   initialState,
   reducers:{
     createAnecdote(state,action){
+      state.push(action.payload)
+
       return state.push({
         id: getId(),
               content:action.payload,

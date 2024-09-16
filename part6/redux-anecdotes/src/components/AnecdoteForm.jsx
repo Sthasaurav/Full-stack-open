@@ -1,17 +1,17 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
-
+import anecdoteService from '../service/anecdote'
 function AnecdoteForm() {
     const dispatch = useDispatch()
 
 
-    const addAnecdotes = (event) => {
+    const addAnecdotes = async (event) => {
         event.preventDefault()
         const content = event.target.anecdote.value
         event.target.anecdote.value = ''
-        dispatch(createAnecdote(content))
+        const newAnecdote = await anecdoteService.createNew(content)
+
+        dispatch(createAnecdote(newAnecdote))
     }
 
     return (
