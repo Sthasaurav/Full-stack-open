@@ -24,7 +24,11 @@ const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes.map(anecdote => <li key={anecdote.id} >
+        <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
+
+        {/* {anecdote.content} */}
+      </li>)}
     </ul>
   </div>
 )
@@ -135,7 +139,9 @@ const App = () => {
       <Menu />
 
       <Routes>
-        <Route path="/" element={<AnecdoteList  anecdotes={anecdotes}/>} />
+        <Route path="/anecdotes/:id" element={<AnecdoteList />} />
+
+        <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path="/create" element={<CreateNew addNew={addNew} />} />
         <Route path="/about" element={<About />} />
 
