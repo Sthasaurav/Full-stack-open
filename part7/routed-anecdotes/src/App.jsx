@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -6,9 +7,15 @@ const Menu = () => {
   }
   return (
     <div>
-      <a href='#' style={padding}>anecdotes</a>
+      <Link to="/" style={padding}>anecdotes</Link>
+      <Link to="/create" style={padding}>create new</Link>
+      <Link to="/about" style={padding}>about</Link>
+
+
+
+      {/* <a href='#' style={padding}>anecdotes</a>
       <a href='#' style={padding}>create new</a>
-      <a href='#' style={padding}>about</a>
+      <a href='#' style={padding}>about</a> */}
     </div>
   )
 }
@@ -74,7 +81,7 @@ const CreateNew = (props) => {
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
         </div>
         <button>create</button>
       </form>
@@ -126,9 +133,17 @@ const App = () => {
     <div>
       <h1>Software anecdotes</h1>
       <Menu />
-      <AnecdoteList anecdotes={anecdotes} />
+
+      <Routes>
+        <Route path="/" element={<AnecdoteList  anecdotes={anecdotes}/>} />
+        <Route path="/create" element={<CreateNew addNew={addNew} />} />
+        <Route path="/about" element={<About />} />
+
+
+      </Routes>
+      {/* <AnecdoteList anecdotes={anecdotes} />
       <About />
-      <CreateNew addNew={addNew} />
+      <CreateNew addNew={addNew} /> */}
       <Footer />
     </div>
   )
