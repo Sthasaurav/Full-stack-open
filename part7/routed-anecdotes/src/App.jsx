@@ -86,9 +86,7 @@ const CreateNew = (props) => {
     })
     navigate('/')
   }
-  // const reset = () => {
-  //   console.log("reset")
-  // }
+
 
   return (
     <div>
@@ -108,8 +106,10 @@ const CreateNew = (props) => {
         </div>
 
         <button>create</button>
-        {/* <button onClick={newContent.reset()}>reset</button> */}
+        
       </form>
+      <button onClick={() => { newContent.reset(); newAuthor.reset(); information.reset() }}>reset</button>
+
 
     </div>
   )
