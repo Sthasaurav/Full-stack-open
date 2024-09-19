@@ -21,51 +21,57 @@ const AddBlogForm = ({ createBlog }) => {
     const addBlog = (event) => {
         event.preventDefault()
         createBlog({
-          title: title,
-          author: author,
-          url: url,
+            title: title,
+            author: author,
+            url: url,
         })
         setTitle('')
         setAuthor('')
         setUrl('')
     }
 
-    
+
 
     return (
-      <div>
-        <h2>create new</h2>
-        <form onSubmit={addBlog}>
-          <div>
-            title: 
-              <input 
-              type="text"
-              value={title}
-              name="Title"
-              onChange={handleTitleChange}
-              />
-          </div>
-          <div>
-            author: 
-              <input 
-              type="text"
-              value={author}
-              name="Author"
-              onChange={handleAuthorChange}
-              />
-          </div>
-          <div>
-            url: 
-              <input 
-              type="url"
-              value={url}
-              name="url"
-              onChange={handleUrlChange}
-              />
-          </div>
-          <button type="submit">create</button>
-        </form>
-     </div> 
+        <div>
+            <h2>create new</h2>
+            <form onSubmit={addBlog}>
+                <div>
+                    title:
+                    <input
+                        type="text"
+                        value={title}
+                        name="Title"
+                        onChange={handleTitleChange}
+                        placeholder='write title here'
+                        id='title'
+                    />
+                </div>
+                <div>
+                    author:
+                    <input
+                        type="text"
+                        value={author}
+                        name="Author"
+                        onChange={handleAuthorChange}
+                        placeholder='write author here'
+                        id='author'
+                    />
+                </div>
+                <div>
+                    url:
+                    <input
+                        type="url"
+                        value={url}
+                        name="url"
+                        onChange={handleUrlChange}
+                        placeholder='write url here'
+                        id='url'
+                    />
+                </div>
+                <button type="submit" id='create-button'>create</button>
+            </form>
+        </div>
     )
 }
 
