@@ -13,21 +13,24 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [changeMessage, setChangeMessage] = useState(null)
+  const [refreshBlog, setRefreshBlog] = useState(false)
   const blogFormRef = useRef()
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
+    blogService.getAll().then(blogs => {
+      blogs.sort((a,b) => b.likes - a.likes)
       setBlogs( blogs )
-    )  
-  }, [])
+    })
 
-  useEffect(() => {    
-    const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')    
-    if (loggedUserJSON) {      
-      const user = JSON.parse(loggedUserJSON)      
-      setUser(user) 
-      blogService.setToken(user.token)      
-    }  
+  }, [refreshBlog])
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      blogService.setToken(user.token)
+    }
   }, [])
 
   const handleLogin = async (event) => {
@@ -63,13 +66,24 @@ const App = () => {
     blogFormRef.current.toggleVisibility()
     blogService
       .create(blogObject)
-        .then(returnedBlog => {
-          setBlogs(blogs.concat(returnedBlog))
-          setChangeMessage(`a new blog ${blogObject.title} by ${blogObject.author} added`)
-          setTimeout(() => {
-            setChangeMessage(null)
-          }, 5000)
-        })
+      .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
+        setChangeMessage(`a new blog ${blogObject.title} by ${blogObject.author} added`)
+        setRefreshBlog(!refreshBlog)
+        setTimeout(() => {
+          setChangeMessage(null)
+        }, 5000)
+      })
+  }
+
+  const addLikes = async (id, blogObject) => {
+    await blogService.update(id, blogObject)
+    setRefreshBlog(!refreshBlog)
+  }
+
+  const deleteBlog = async id => {
+    await blogService.remove(id)
+    setRefreshBlog(!refreshBlog)
   }
 
   if (user === null) {
@@ -80,21 +94,21 @@ const App = () => {
         <form onSubmit={handleLogin}>
           <div>
             username
-              <input 
+            <input
               type="text"
               value={username}
               name="Username"
               onChange={({ target }) => setUsername(target.value)}
-              />
+            />
           </div>
           <div>
             password
-              <input 
+            <input
               type="password"
               value={password}
               name="Password"
               onChange={({ target }) => setPassword(target.value)}
-              />
+            />
           </div>
           <button type="submit">login</button>
         </form>
@@ -106,13 +120,13 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification message={changeMessage} />
-      <p> {user.name} logged in </p> 
+      <p> {user.name} logged in </p>
       <button type="submit" onClick={handleLogout}>logout</button>
       <Togglable buttonLabel="create new blog" ref={blogFormRef}>
         <AddBlogForm createBlog={addBlog} />
       </Togglable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} addLikes={addLikes} deleteBlog={deleteBlog}/>
       )}
     </div>
   )
