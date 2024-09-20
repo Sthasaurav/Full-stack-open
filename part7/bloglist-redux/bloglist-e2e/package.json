@@ -1,0 +1,19 @@
+{
+  "name": "bloglist-e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:report": "playwright show-report",
+    "test:ui": "playwright test --ui",
+    "cypress:open": "cypress open"
+  },
+  "author": "Saurav Sthrestha",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.30",
+    "cypress": "^13.14.2"
+  }
+}
