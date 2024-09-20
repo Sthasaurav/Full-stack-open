@@ -1,86 +1,54 @@
-import { createSlice } from '@reduxjs/toolkit'
-// import {} from '../service/anecdote'
+import { createSlice } from "@reduxjs/toolkit"
+import anecdoteService from '../service/anecdote'
 
-const anecdotesAtStart = []
+// const getId = () => (100000 * Math.random()).toFixed(0)
 
-
-const getId = () => (100000 * Math.random()).toFixed(0)
-
-const asObject = (anecdote) => {
-  return {
-    content: anecdote,
-    id: getId(),
-    votes: 0
-  }
-}
-
-const initialState = anecdotesAtStart.map(asObject)
-
-const anecdoteSlice=createSlice({
-  name:'anecdote',
-  initialState,
-  reducers:{
-    createAnecdote(state,action){
-      state.push(action.payload)
-
-      return state.push({
-        id: getId(),
-              content:action.payload,
-            votes:0
-
-      })
-    },
-    voteOnAnecdote(state, action) {
+// const asObject = (anecdote) => {
+//   return {
+//     content: anecdote,
+//     id: getId(),
+//     votes: 0
+//   }
+// }
+const anecdoteSlice = createSlice({
+  name: 'anecdote',
+  initialState: [],
+  reducers: {
+    addVotes(state, action){
+      const id = action.payload
+      const anecdoteToChange = state.find(n => n.id ===id)
+      const changedAnecdote = {
+        ...anecdoteToChange,
+        votes: anecdoteToChange.votes + 1
+      }
       return state.map(anecdote => 
-        anecdote.id===action.data.id? {...anecdote,votes:anecdote.votes+1}:anecdote      )
+        anecdote.id !== id ? anecdote : changedAnecdote
+      )
     },
-    appendAnecdote(state, action) {
+
+    appendAnecdote(state, action){
       state.push(action.payload)
     },
-    setAnecdotes(state,action){
+    setAnecdote(state, action){
       return action.payload
     }
   }
 })
 
-export const {createAnecdote,voteOnAnecdote,appendAnecdote,setAnecdotes}=anecdoteSlice.actions
-export default anecdoteSlice.reducer
+export const { addVotes, appendAnecdote, setAnecdote } = anecdoteSlice.actions
 
-// const anecdotereducer = (state = initialState, action) => {
+export const initializeAncedotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch(setAnecdote(anecdotes))
+  }
+}
 
-//   switch(action.type){
-//     case 'VOTE':
-//       return state.map(anecdote=>
-//         anecdote.id===action.data.id? {...anecdote,votes:anecdote.votes+1}:anecdote
-//       )
-//       case 'CREATE':
-//         return [...state, action.data]
-    
-//   }
-//   console.log('action', action)
+export const createAnecdotes = content => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(content)
+    dispatch(appendAnecdote(newAnecdote))
+  }
+}
 
-//   return state
-// }
-
-// export const createAnecdote=(content)=>{
-//   return{
-//     type:'CREATE',
-//     data: {
-//       id: getId(),
-//       content,
-//     votes:0
-     
-//     }
-
-//   }
-// }
-
-// export const voteOnAnecdote = (id) => {
-//   return {
-//     type: 'VOTE',
-//     data: { id }
-//   }
-// }
-
-// export default anecdotereducer
-
+export default anecdoteSlice.reducer 
