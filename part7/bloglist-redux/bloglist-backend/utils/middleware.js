@@ -49,7 +49,7 @@ const userExtractor = async (request, response, next) => {
     return response.status(401).json({ error: 'token missimg' })
   }
 
-  const decodedToken = jwt.verify(token, process.env.SECRET)
+  const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token invalid' })
   }
