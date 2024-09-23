@@ -8,6 +8,9 @@ import Togglable from './components/Togglable'
 import Blog from './components/Blog'
 import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
+import Homepage from './pages/Homepage'
+import Users from './pages/users'
+import { Route,Routes,Link } from 'react-router-dom'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -53,8 +56,7 @@ const App = () => {
               logout
             </button>
           </p>
-
-          <Togglable buttonLabel="create new blog" ref={blogFormRef}>
+          {/* <Togglable buttonLabel="create new blog" ref={blogFormRef}>
             <BlogForm />
           </Togglable>
 
@@ -62,9 +64,15 @@ const App = () => {
             .sort((a, b) => b.likes - a.likes)
             .map((blog) => (
               <Blog key={blog.id} blog={blog} username={user.username} />
-            ))}
+            ))} */}
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            {/* <Route path="/users" element={<Users />} /> */}
+          </Routes>
+
         </div>
       )}
+
     </div>
   )
 }

@@ -58,7 +58,7 @@ const Blog = ({ username, blog }) => {
             <button onClick={handleLike}>like</button>
           </div>
 
-          <span>{blog.user.name}</span>
+          <span>added by:{blog.user.name}</span>
 
           {blog.user.username === username && (
             <div>
