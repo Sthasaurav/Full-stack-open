@@ -11,4 +11,5 @@ const Notification = () => {
 
   return <div className="note">{message}</div>
 }
+
 export default Notification
