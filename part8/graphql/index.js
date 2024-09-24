@@ -119,7 +119,21 @@ const typeDefs = `
     allBooks(author:String,genres:String):[book!]!
     allAuthors:[author!]!
   }
+
+
+  type Mutation {
+  addBook(
+    title: String!
+    author: String!
+    published: Int!
+    genres: [String!]!
+  ): book
+}
+  
 `;
+
+//generating ID
+const { v1: uuid } = require("uuid");
 
 const resolvers = {
   Query: {
@@ -142,6 +156,16 @@ const resolvers = {
   },
   author: {
     bookCount: (root) => books.filter((b) => b.author === root.name).length,
+  },
+
+  //addbook with mutation
+
+  Mutation: {
+    addBook: (root, args) => {
+      const book = { ...args, id: uuid() };
+      books = books.concat(book);
+      return book;
+    },
   },
 };
 
