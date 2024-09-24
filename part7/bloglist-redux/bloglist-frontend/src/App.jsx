@@ -67,7 +67,7 @@ const App = () => {
             ))} */}
           <Routes>
             <Route path="/" element={<Homepage />} />
-            {/* <Route path="/users" element={<Users />} /> */}
+            <Route path="/users" element={<Users />} />
           </Routes>
 
         </div>

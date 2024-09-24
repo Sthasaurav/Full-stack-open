@@ -14,6 +14,14 @@ const Users = () => {
   return (
     <div>
       <h2>Users</h2>
+      <table>
+        <tr>
+          <th>creator</th>
+          <th>blogs created</th>
+        </tr>
+        <tr>
+        </tr>
+      </table>
 
     </div>
   )
