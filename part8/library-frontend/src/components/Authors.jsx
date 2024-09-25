@@ -1,5 +1,5 @@
 const Authors = (props) => {
-  if (!props.show) {
+  if (!props) {
     return null
   }
   const authors = []

@@ -1,5 +1,5 @@
 const Books = (props) => {
-  if (!props.show) {
+  if (!props) {
     return null
   }
 
