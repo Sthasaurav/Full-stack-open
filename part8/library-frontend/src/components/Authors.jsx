@@ -1,8 +1,8 @@
-const Authors = (props) => {
-  if (!props) {
+const Authors = ({authors}) => {
+  if (!authors) {
     return null
   }
-  const authors = []
+  // const authors = []
 
   return (
     <div>

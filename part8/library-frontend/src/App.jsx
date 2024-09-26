@@ -2,9 +2,43 @@ import Authors from "./components/Authors";
 import Books from "./components/Books";
 import NewBook from "./components/NewBook";
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client'
+
+const ALL_AUTHORS = gql`
+query{
+  allAuthors {
+    name
+    born
+    bookCount
+    id
+  }
+}
+`
+const ALL_BOOKS = gql`
+query{
+  allBooks {
+    title
+    published
+    author
+    id
+    genres
+  }
+}`
 const App = () => {
   // const [page, setPage] = useState("authors");
+  const authors = useQuery(ALL_AUTHORS)
+  const books = useQuery(ALL_BOOKS)
   const navigate = useNavigate();
+
+  if(authors.loading || books.loading){
+    return <div>loading...</div>
+  }
+  if (authors.error || books.error) {
+    return <div>Error fetching data...</div>;
+  }
+
+  console.log('authors', authors.data.allAuthors)
+  console.log('books', books.data.allBooks)
   return (
     <div>
        <div>
@@ -13,8 +47,8 @@ const App = () => {
         <button onClick={() => navigate('/add')}>Add Book</button>
       </div>
         <Routes>
-        <Route path="/" element={<Authors/>} />
-        <Route path="/books"  element={<Books/>}/>
+        <Route path="/" element={<Authors authors={authors.data.allAuthors}/>}  />
+        <Route path="/books"  element={<Books books={books.data.allBooks}/>}  />
         <Route path="/add" element={  <NewBook/>}/>
       </Routes>
     </div>
