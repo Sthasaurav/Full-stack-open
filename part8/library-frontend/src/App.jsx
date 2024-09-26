@@ -4,7 +4,7 @@ import NewBook from "./components/NewBook";
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client'
 
-const ALL_AUTHORS = gql`
+export const ALL_AUTHORS = gql`
 query{
   allAuthors {
     name
@@ -14,7 +14,7 @@ query{
   }
 }
 `
-const ALL_BOOKS = gql`
+export const ALL_BOOKS = gql`
 query{
   allBooks {
     title
@@ -23,7 +23,9 @@ query{
     id
     genres
   }
-}`
+}
+`
+
 const App = () => {
   // const [page, setPage] = useState("authors");
   const authors = useQuery(ALL_AUTHORS)
