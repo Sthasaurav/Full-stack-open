@@ -3,7 +3,9 @@ const { startStandaloneServer } = require("@apollo/server/standalone");
 
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
-const Author = require('./modals/author')
+const Author = require('./models/author')
+const Book = require('./models/book')
+
 
 require('dotenv').config()
 
