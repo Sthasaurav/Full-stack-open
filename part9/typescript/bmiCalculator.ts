@@ -15,6 +15,5 @@ if(bmi>=30)
 {  return `Calculated BMI is ${bmi} i.e Obesity`
 }
 
+console.log(calculateBmi(height, weight));
 };
-
-console.log(calculateBmi(180, 74));
