@@ -15,5 +15,9 @@ if(bmi>=30)
 {  return `Calculated BMI is ${bmi} i.e Obesity`
 }
 
-console.log(calculateBmi(height, weight));
+// console.log(calculateBmi(180,70 ));
 };
+const weight:number = Number(process.argv[2]);
+const height:number = Number(process.argv[3]);
+
+console.log(calculateBmi(height, weight));
