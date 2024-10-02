@@ -9,13 +9,15 @@
     "calculateBmi": "ts-node bmiCalculator.ts",
     "calculateExercises": "ts-node exerciseCalculator.ts",
     "start": "ts-node index.ts",
-    "dev":"ts-node index.ts"
+    "dev": "ts-node index.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/node": "^22.7.4",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.2"
   },
   "dependencies": {
