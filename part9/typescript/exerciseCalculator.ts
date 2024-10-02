@@ -41,3 +41,7 @@ const calculateExercises =(dailyHours:number[],target:number):Result=>{
 
 // console.log(calculateExercises([3,0,2,4.5,0,3,1],2))
 
+const dailyHours:number=Number(process.argv[2]);
+const target:number=Number(process.argv[3])
+
+console.log(calculateExercises([dailyHours],target))
