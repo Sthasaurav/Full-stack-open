@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "noImplicitAny": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "strictBindCallApply": true,
@@ -10,6 +10,5 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "esModuleInterop": true,
-    "declaration": true,
-  }
+    "declaration": true,  }
 }
