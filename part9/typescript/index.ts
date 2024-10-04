@@ -13,8 +13,8 @@ app.get('/bmi', (req, res) => {
     }
     const bmi = calculateBmi(height, weight);
     const bmiData = {
-        weight, 
-        height, 
+      height,
+      weight, 
         bmi
     }
     res.send(bmiData).status(200);
